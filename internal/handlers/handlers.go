@@ -20,7 +20,11 @@ func NewHandler(store *database.TaskStore) *Handler {
 func respondWithJSON(w http.ResponseWriter, statusCode int, payload any) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(statusCode)
-	json.NewEncoder(w).Encode(payload)
+	err := json.NewEncoder(w).Encode(payload)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
 }
 
 func respondWithError(w http.ResponseWriter, statusCode int, message string) {
