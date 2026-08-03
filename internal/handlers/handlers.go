@@ -27,7 +27,7 @@ func respondWithError(w http.ResponseWriter, statusCode int, message string) {
 	respondWithJSON(w, statusCode, map[string]string{"error": message})
 }
 
-func (h *Handler) GetAllTasks(w http.ResponseWriter, r *http.Request) {
+func (h *Handler) GetAllTasks(w http.ResponseWriter) {
 	tasks, err := h.store.GetAll()
 
 	if err != nil {
